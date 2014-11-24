@@ -53,19 +53,17 @@
                 left: badx+'%'
             });
 
-            setInterval(function() { // traversée d'un enemy
-                $('#bad'+enemy_id).css('left', badx + '%'); //placement
-                badx = badx - speed; // déplacement
-                if (badx < -20) { //si bad sort de l'écran
-                    badx = 110; //retour sur la droit de l'écran
-                    $('#bad'+enemy_id).css('top', hauteur + '%'); // placement du niveau
-                    hauteur = Math.round(Math.random() * 90); // randomisation du niveau
-                }
-            }, refresh);
-
         }
 
-
+        setInterval(function new_enemy() { // traversée d'un enemy
+            $('#bad'+enemy_id).css('left', badx + '%'); //placement
+            badx = badx - speed; // déplacement
+            if (badx < -20) { //si bad sort de l'écran
+                badx = 110; //retour sur la droit de l'écran
+                $('#bad'+enemy_id).css('top', hauteur + '%'); // placement du niveau
+                hauteur = Math.round(Math.random() * 90); // randomisation du niveau
+            }
+        }, refresh);
 
 
 
