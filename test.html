@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            border:1px solid black;
+            background-image: url(bg1.png);
+
+        }
+
+        #bad {
+            position: absolute;
+            height: 15%;
+            width: 8%;
+            left: -40%;
+        }
+    </style>
+    <script src="jquery.js"></script>
+    <script type="text/javascript">
+        var badx=0;
+        var bady=Math.round(Math.random()*90);var enemy=Array;
+        var enemy=Array;
+        var enemy_id = 0;
+        var hauteur = 0;
+        var speed = 0;
+        var refresh = 500;
+
+        function new_enemy(){
+            enemy_id++;
+            speed = Math.round(Math.random() * 8);
+            hauteur = Math.round(Math.random() * 90);
+
+
+            $('body').append($('<img>', { //creation de l'img
+                src : "bad.png", // definition de la source
+                id :"bad"+enemy_id, // fixe l'id de l'img
+                width : 15+'%' //fixe la taille (à corriger en %)
+
+
+            }))
+            $("#bad"+enemy_id).css({ // attribution de la position absolute de l'img (son id)
+                position: 'absolute',
+                left: badx+'%'
+            });
+
+        }
+
+
+        setInterval(function new_enemy() { // traversée d'un enemy
+            $('#bad'+enemy_id).css('left', badx + '%'); //placement
+            badx = badx - speed; // déplacement
+            if (badx < -20) { //si bad sort de l'écran
+                badx = 110; //retour sur la droit de l'écran
+                $('#bad'+enemy_id).css('top', hauteur + '%'); // placement du niveau
+                hauteur = Math.round(Math.random() * 90); // randomisation du niveau
+            }
+        }, refresh);
+
+
+
+
+
+        $(document).ready(function(){
+            new_enemy();
+
+            /*setInterval(function new_enemy(){
+            }, 2000)*/
+        });
+    </script>
+</head>
+<body>
+<img id="bad" src="bad.png" alt="bad">
+</body>
+</html>
