@@ -27,7 +27,7 @@
     <script src="jquery.js"></script>
     <script type="text/javascript">
         var badx=0;
-        var bady=Math.round(Math.random()*90);var enemy=Array;
+        var bady=Math.round(Math.random()*90);
         var enemy=Array;
         var enemy_id = 0;
         var hauteur = 0;
@@ -47,33 +47,35 @@
 
 
             }))
+
             $("#bad"+enemy_id).css({ // attribution de la position absolute de l'img (son id)
                 position: 'absolute',
                 left: badx+'%'
             });
 
+            setInterval(function() { // traversée d'un enemy
+                $('#bad'+enemy_id).css('left', badx + '%'); //placement
+                badx = badx - speed; // déplacement
+                if (badx < -20) { //si bad sort de l'écran
+                    badx = 110; //retour sur la droit de l'écran
+                    $('#bad'+enemy_id).css('top', hauteur + '%'); // placement du niveau
+                    hauteur = Math.round(Math.random() * 90); // randomisation du niveau
+                }
+            }, refresh);
+
         }
 
 
-        setInterval(function new_enemy() { // traversée d'un enemy
-            $('#bad'+enemy_id).css('left', badx + '%'); //placement
-            badx = badx - speed; // déplacement
-            if (badx < -20) { //si bad sort de l'écran
-                badx = 110; //retour sur la droit de l'écran
-                $('#bad'+enemy_id).css('top', hauteur + '%'); // placement du niveau
-                hauteur = Math.round(Math.random() * 90); // randomisation du niveau
-            }
-        }, refresh);
+
 
 
 
 
 
         $(document).ready(function(){
-            new_enemy();
+            //new_enemy();
 
-            /*setInterval(function new_enemy(){
-            }, 2000)*/
+            setInterval("new_enemy()", 2000);
         });
     </script>
 </head>
