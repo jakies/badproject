@@ -17,7 +17,7 @@
 
         }
 
-        #bad {
+        #enemy {
             position: absolute;
             height: 15%;
             width: 8%;
@@ -26,8 +26,8 @@
     </style>
     <script src="jquery.js"></script>
     <script type="text/javascript">
-        var badx=0;
-        var bady=Math.round(Math.random()*90);
+        var enemyX=0;
+        var enemyY=Math.round(Math.random()*90);
         var enemy=Array;
         var enemy_id = 0;
         var hauteur = 0;
@@ -41,26 +41,26 @@
 
 
             $('body').append($('<img>', { //creation de l'img
-                src : "bad.png", // definition de la source
-                id :"bad"+enemy_id, // fixe l'id de l'img
+                src : "enemy.png", // definition de la source
+                id :"enemy"+enemy_id, // fixe l'id de l'img
                 width : 15+'%' //fixe la taille (à corriger en %)
 
 
             }))
 
-            $("#bad"+enemy_id).css({ // attribution de la position absolute de l'img (son id)
+            $("#enemy"+enemy_id).css({ // attribution de la position absolute de l'img (son id)
                 position: 'absolute',
-                left: badx+'%'
+                left: enemyX+'%'
             });
 
         }
 
         setInterval(function new_enemy() { // traversée d'un enemy
-            $('#bad'+enemy_id).css('left', badx + '%'); //placement
-            badx = badx - speed; // déplacement
-            if (badx < -20) { //si bad sort de l'écran
-                badx = 110; //retour sur la droit de l'écran
-                $('#bad'+enemy_id).css('top', hauteur + '%'); // placement du niveau
+            $('#enemy'+enemy_id).css('left', enemyX + '%'); //placement
+            enemyX = enemyX - speed; // déplacement
+            if (enemyX < -20) { //si enemy sort de l'écran
+                enemyX = 110; //retour sur la droit de l'écran
+                $('#enemy'+enemy_id).css('top', hauteur + '%'); // placement du niveau
                 hauteur = Math.round(Math.random() * 90); // randomisation du niveau
             }
         }, refresh);
@@ -78,6 +78,6 @@
     </script>
 </head>
 <body>
-<img id="bad" src="bad.png" alt="bad">
+<img id="enemy" src="enemy.png" alt="enemy">
 </body>
 </html>
