@@ -32,34 +32,38 @@
         var enemy_id = 0;
         var hauteur = 0;
         var speed = 0;
+        var enemy_img = 0;
         var refresh = 500;
 
-        function new_enemy(){
+
+
+
+
+        function new_enemy(){ // enemy_id, speed, hauteur, enemy_img
             enemy_id++;
-            speed = Math.round(Math.random() * 8);
+            speed = Math.round(Math.random() * 8)+2;
             hauteur = Math.round(Math.random() * 90);
 
 
-            $('body').append($('<img>', { //creation de l'img
+            enemy_img = $('body').append($('<img>', { //creation de l'img
                 src : "enemy.png", // definition de la source
                 id :"enemy"+enemy_id, // fixe l'id de l'img
                 width : 15+'%' //fixe la taille (à corriger en %)
-
-
-            }))
-
-            $("#enemy"+enemy_id).css({ // attribution de la position absolute de l'img (son id)
-                position: 'absolute',
-                left: enemyX+'%'
-            });
-
+            }).css({
+                position: 'absolute'
+            }));
         }
+
+
+
+
+
 
         setInterval(function new_enemy() { // traversée d'un enemy
             $('#enemy'+enemy_id).css('left', enemyX + '%'); //placement
             enemyX = enemyX - speed; // déplacement
             if (enemyX < -20) { //si enemy sort de l'écran
-                enemyX = 110; //retour sur la droit de l'écran
+                enemyX = 110; //retour sur la droite de l'écran
                 $('#enemy'+enemy_id).css('top', hauteur + '%'); // placement du niveau
                 hauteur = Math.round(Math.random() * 90); // randomisation du niveau
             }
@@ -71,9 +75,9 @@
 
 
         $(document).ready(function(){
-            //new_enemy();
+            new_enemy();
 
-            setInterval("new_enemy()", 2000);
+            //setInterval("new_enemy()", 2000);
         });
     </script>
 </head>
