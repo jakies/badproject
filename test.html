@@ -26,59 +26,47 @@
     </style>
     <script src="jquery.js"></script>
     <script type="text/javascript">
-        var enemyX=0;
-        var enemyY=Math.round(Math.random()*90);
-        var enemy=new Array;
-        var enemy_id = 0;
-        var height = 0;
-        var speed = 0;
-        var enemy_img = 0;
-        var refresh = 500;
-
-
-
-
-
-        function new_enemy(){ // enemy_id, speed, height, enemy_img
-            enemy_id++;
-
-            speed = Math.round(Math.random() * 8) + 2;
-            height = Math.round(Math.random() * 90);
-            enemy_img = $('body').append($('<img>', { //create img
-                src: "enemy.png", // source img
-                id: "enemy" + enemy_id, // create img id
-                width: 8 + '%'
-            }).css({
-                position: 'absolute'
-            }));
-
-
-
-
-
+        var enemies = {}, enemyIdCounter = 0;
+        
+        function newEnemy(enemyId) {
+            var imgElement = $('<img>', {
+                src: 'enemy.png', 
+                id: 'enemy'+enemyId,
+                width: '8%'
+            }).css('position', 'absolute')
+            
+            return { // Object containing properties of an enemy
+                id: enemyId,
+                xPos: 0,
+                yPos: Math.round(Math.random()*90),
+                enemy: [],
+                height: Math.round(Math.random()*90),
+                speed: Math.round(Math.random()*8) + 2,
+                img: imgElement
+            }
         }
 
-        setInterval(function new_enemy() { // move of an enemy
-            $('#enemy'+enemy_id).css('left', enemyX + '%');
-            enemyX = enemyX - speed;
-            if (enemyX < -20) { //block in the area of the screen
-                enemyX = 110;
-                $('#enemy'+enemy_id).css('top', height + '%');
-                height = Math.round(Math.random() * 90); // randomize height of apparition
-            }
-        }, refresh);
-
-
-
-
-
-
-        $(document).ready(function(){
-            new_enemy();
-
-            //setInterval("new_enemy()", 2000);
-
-            $('#debug').append("<br> id : " + enemy_id + "<br>", "speed : " + speed+ "<br>" , "height : " + height);
+        $(function(){
+            setInterval(function() {
+                // Get a new unique ID
+                var id = ++enemyIdCounter;
+                // Create enemy "baddie" with new ID
+                var baddie = newEnemy(id);
+                // Put enemy in a container of all enemies (nothing is done with this container though)
+                enemies[id] = baddie;
+                // Edit this enemy up a bit
+                baddie.img.css('left', baddie.xPos + '%');
+                baddie.xPos -= baddie.speed;
+                
+                // Add the image of the enemy
+                $(document.body).append(baddie.img); 
+    
+                if (baddie.xPos < -20) { //block in the area of the screen
+                    baddie.xPos = 110;
+                    baddie.img.css('top',  baddie.height + '%');
+                    baddie.height = Math.round(Math.random()*90); // randomize height of apparition
+                }
+            }, 500);
         });
     </script>
 </head>
